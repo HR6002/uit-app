@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
+import 'signupChoice.dart';
 
 class SignupLoginChoice extends StatelessWidget {
   const SignupLoginChoice({super.key});
@@ -23,6 +24,27 @@ class SignupLoginChoice extends StatelessWidget {
     );
   }
 
+
+
+
+  Route _createRoute1() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => const SignupChoice(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+      transitionDuration: const Duration(milliseconds: 600 ), // Increase duration for a slower transition
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,15 +53,10 @@ class SignupLoginChoice extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'Welcome to',
+              'Welcome',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
             ),
-            const SizedBox(height: 5),
-            const Text(
-              "UIT Recruitment",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 35),
             GestureDetector(
               onTap: () {
                 Navigator.of(context).push(_createRoute());
@@ -48,7 +65,7 @@ class SignupLoginChoice extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
-                    color: Colors.green,
+                    color: Colors.purple,
                     width: 1.0,
                   ),
                 ),
@@ -71,12 +88,17 @@ class SignupLoginChoice extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Container(
+
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(_createRoute1());
+              },
+            child:Container(
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 124, 192, 126),
+                color: Colors.deepPurple,
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(
-                  color: const Color.fromARGB(255, 124, 192, 126),
+                  color:Colors.deepPurple,
                   width: 1.0,
                 ),
               ),
@@ -87,19 +109,20 @@ class SignupLoginChoice extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: const [
                     SizedBox(width: 10),
-                    Icon(Icons.person_2_sharp),
+                    Icon(Icons.person_2_sharp, color: Colors.white,),
                     SizedBox(width: 80),
                     Text(
                       'Sign Up',
                       style: TextStyle(
+                        color: Colors.white,
                         fontSize: 18,
-                        fontWeight: FontWeight.w300,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
+            ),)
           ],
         ),
       ),
